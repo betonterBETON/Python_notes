@@ -1,0 +1,33 @@
+list
+    - sequences of objects
+    - mutable (their elements can be replaced, removed or new ones inserted, appended)
+    - super important in python
+    - they use square brackets and commas:
+        >>> a = ["apple", "orange", "pear"]
+    - elements can be retrieved using indexing:
+        >>> a[1]
+        'orange'
+    - elems can be replaced by assigning to an index:
+        >>> a[1] = 7
+        >>> a
+        ['apple', 7, 'pear']
+    - they can be heterogenous (mixed types within one list) ^
+    - sometimes useful to create an empty list, we can then add at the end with "append":
+        >>> b = []
+        >>> b.append(1.618)
+        >>> b
+        [1.618]
+        >>> b.append(1.414)
+        >>> b
+        [1.618, 1.414]
+    - list() constructor:
+        >>> list("characters")
+        ['c', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', 's']
+    - until we close the bracket, we can enter the list items in separate lines:
+        >>> c = ['bear',
+        ...       'giraffe',
+        ...       'elephant',
+        ...       'caterpillar',]
+        >>> c
+        ['bear', 'giraffe', 'elephant', 'caterpillar']
+    - notice the extra comma after last element!!! important maintainability feature

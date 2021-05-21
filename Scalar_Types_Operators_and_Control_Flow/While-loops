@@ -1,0 +1,57 @@
+while
+    - syntax:
+        while <expression>:
+            block
+    - remember that <expression> will automatically get converted to boolean,
+      same as if bool(<expression>) constructor were used
+    - the condition <expression> is also called the PREDICATE
+    - example (notice the augmented assignment operator "-=" , other: "+=", "*="):
+        >>> c = 5
+        >>> while c != 0:
+            print(c)
+            c-=1
+
+
+        5
+        4
+        3
+        2
+        1
+        >>>
+    - the same example (notice use of implicit bool() conversion - while c):
+        >>> c = 5
+        >>> while c:
+            print(c)
+            c -= 1
+
+
+        5
+        4
+        3
+        2
+        1
+        >>>
+    - the above works, b/c the int-->bool conversion bool(0) is False,
+      while all other integer values converted to bool return True
+    - HOWEVER this is AGAINST THE ZEN OF PYTHON (explicit is better than implicit)
+    - while loops are often used for infinite loops in the form of:
+        while True:
+            pass
+      to get out of such loop, press Ctrl+C --> in such case, a special exception is raised
+    - the testing of condition is BEFORE execution of block (unlike do-while in C, Java or
+      repeat...until in others)
+    - in Python you would use while True... break instead
+    - break
+        - jumps out of the innermost executing loop (LOOP, not condition statement)
+          to the line immediately after it (after the loop's body)
+        - example:
+            >>> while True:
+                    response = input()
+                    if int(response) % 7 == 0:
+                        break
+
+            12
+            67
+            34
+            28
+            >>>

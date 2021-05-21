@@ -1,0 +1,24 @@
+dict
+    - fundamental and widely used
+    - maps keys to values
+    - in other languages:
+        - maps
+        - associative arrays
+    - literal dictionaries are created using curly braces, containing key-value pairs:
+        {k1: v1, k2: v2}
+    - we can retrieve by key w/ squate brackets operator
+        >>> d = {'alice': '878-8728-922', 'bob': '256-5262-124', 'eve': '198-2321-787'}
+        >>> d['alice']
+        '878-8728-922'
+    - ...and and update values by key, by assigning through the square br. operator:
+        >>> d['alice'] = '966-4532-6272'
+        >>> d
+        {'alice': '966-4532-6272', 'bob': '256-5262-124', 'eve': '198-2321-787'}
+    - if a key does not exist, and we assign to it, a new entry is created:
+        >>> d['charles'] = '334-5551-913'
+        >>> d
+        {'alice': '966-4532-6272', 'bob': '256-5262-124', 'eve': '198-2321-787', 'charles': '334-5551-913'}
+    - prior to Python 3.7, the items in the dictionary aren't stored in any particular order (later,
+      they are kept in INSERTION ORDER)
+    - empty dicts are created thus:
+        >>> e = {}

@@ -1,0 +1,23 @@
+for-loop
+    - for each loops (in other languages)
+    - they request items one by one in from a collection (iterable series)
+        for <item> in <iterable>:
+            <body>
+    - example (list):
+        >>> cities = ['London', 'New York', 'Paris', 'Oslo', 'Helsinki']
+        >>> for city in cities:
+        ...      print(city)
+        ...
+        London
+        New York
+        Paris
+        Oslo
+        Helsinki
+    - example (dict- here, it is iterated over keys):
+        >>> colors = {'crimson': 0xdc143c, 'coral': 0xff7f50, 'teal': 0x008080}
+        >>> for color in colors:
+        ...      print(color, colors[color])
+        ...
+        crimson 14423100
+        coral 16744272
+        teal 32896

@@ -1,0 +1,36 @@
+bytes
+    - similar to strings, but they are not sequences of code points,
+      they are instead sequences of bytes
+    - they are used for raw binary data and fixed-width single-byte encodings
+    - they are put in quotes, prefixed with 'b'
+        >>> b'data'
+        b'data'
+        >>> b"data"
+        b'data'
+    - there's also a bytes() constructor, not covered in this course
+    - they employ similar functions as strings:
+        - indexing:
+            >>> d = b'some bytes'
+            >>> d[0]
+            115
+        - splitting
+            >>> d.split()
+            [b'some', b'bytes']
+    - to convert between bytes and strings, one needs to know the encoding of the byte sequence:
+        - decoding: bytes-->str
+        - encoding: str-->bytes
+    - example:
+        >>> norsk = 'Jeg begynte å fortære en sandwich mens jeg kjørte taxi på vei til quiz'
+        >>> data = norsk.encode('utf8')
+        >>> data
+        b'Jeg begynte \xc3\xa5 fort\xc3\xa6re en sandwich mens jeg kj\xc3\xb8rte taxi p\xc3\xa5 vei til quiz'
+
+        the norwegian characters have been rendered as pairs of bytes
+        we can decode it, supplying the correct encoding:
+
+        >>> norwegian = data.decode('utf8')
+        >>> norwegian == norsk
+        True
+        >>> norwegian
+        'Jeg begynte å fortære en sandwich mens jeg kjørte taxi på vei til quiz'
+

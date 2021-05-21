@@ -1,0 +1,109 @@
+str
+    - data type for strings in Python
+    - strings are sequences of Unicode code points (code points are
+      not strictly equivalent to characters, but in most part are characters)
+    - immutable (once a str is constructed, you cannot modify its contents)
+    - literals can be delimited by such quotes (as long as they're consistent):
+        - single ''
+        - double ""
+            >>> "inconsistent'
+              File "<stdin>", line 1
+                "inconsistent'
+                                ^
+            SyntaxError: EOL while scanning string literal
+    - while echoing the string, the REPL uses the same kind of quotes we did,
+      whilst constructing that string
+    - PRACTICALITY BEATS PURITY takes precedence over THERE SHOULD BE ONE OBVIOUS WAY TO DO STH
+      when both quotes are available (this enables us to avoid frequent escape signs)
+        - beautiful text strings
+        - rendered in literal form
+        - simple elegance
+    - python concatenates adjacent strings like so:
+        >>> "first" "second"
+        'firstsecond'
+    - in order to have strings with newlines the options are:
+        - multiline strings
+          spread the literal across multiple lines
+        - escape sequences
+          embed excape sequences in a single line literal
+
+            >>> s = """
+            ... Multi-
+            ... line
+            ... string
+            ... """
+            >>>
+            >>> print(s)
+            Multi-
+            line
+            string
+
+            >>> '''So
+            ... is
+            ... this.'''
+            'So\nis\nthis.'
+
+            >>> """And
+            ... this"""
+            'And\nthis'
+    - Windows default: newline = \r\n (carriage return, line feed)
+    - Linux default: newline = \r (carriage return)
+    - HOWEVER python3 has universal newlines, i.e. it translates \n to the appropriate sequence
+      on your platform (PEP278)
+    - escape sequences allows for embedding quote characters within strings:
+        >>> "this is a \" in a string"
+        'this is a " in a string'
+        >>> 'this is a \' in a string'
+        "this is a ' in a string"
+    - notice above, how Python automatically assigns the most convenient quote delimiters
+    - Python will resort to escape sequences, if we use both types of quotes in a string
+        >>> 'This is a \" and a \' in a string'
+        'This is a " and a \' in a string'
+    - since backslash has special meaning it needs escape itself:
+        >>> k = 'A \\ in a string'
+        >>> k
+        'A \\ in a string'
+        >>> print(k)
+        A \ in a string
+    - more on all escape types:
+      https://docs.python.org/3/reference/lexical_analysis.html
+    - RAW STRINGS
+        - don't support escape sequences (what you see is what you get)
+        - use "r" prefix
+            >>> path = r'C:\Users\Blep\Docs'
+            >>> path
+            'C:\\Users\\Blep\\Docs'
+            >>> print(path)
+            C:\Users\Blep\Docs
+    - str() constructor can create string representations of other types, e.g.:
+        - integers
+            >>> str(587)
+            '587'
+        - floats
+            >>> str(6.02e+23)
+            '6.02e+23'
+    - strings are SEQUENCE TYPES, which means they support certain operations, e.g.:
+        - accessing single characters by index similarly to items in an array:
+            >>> s = 'parrot'
+            >>> s[4]
+            'o'
+        - notice that the single character is also a string (in python there is no char type!)
+            >>> type(s[3])
+            <class 'str'>
+    - you can use help(str) to list all methods for string type objects (press "q" to quit help browser)
+      methods are functions, so they have parentheses
+      to call methods on objects, we use the dot after object name and before the method name
+        >>> c = "oslo"
+        >>> c.capitalize()
+        'Oslo'
+        >>> c
+        'oslo'
+      notice that c remains unchanged (strings are immutable), so the method returned a new string
+    - default python source encoding is UTF-8, so international characters can be used too (str is Unicode)
+    - you can use escape signs and hexadecimal representation of unicode code points as an escape sequence
+      prefixed by \u:
+        >>> "Vi er s\u00e5 glad for \u00e5 h\xf8re og l\u00e6re om Python!"
+        'Vi er så glad for å høre og lære om Python!'
+
+    - string methods:
+      https://docs.python.org/2.5/lib/string-methods.html

@@ -1,0 +1,25 @@
+Relational operators
+    - are used for comparing objects
+
+    == value equality/equivalence
+    != value inequality/inequivalence
+
+    rich comparison operators:
+    <  less than
+    >  greater than
+    <= less than or equal
+    >= greater than or equal
+
+Equality/inequality
+    - integer:
+        >>> g = 20
+        >>> g == 20
+        True
+        >>> g == 13
+        False
+        >>> g != 20
+        False
+        >>> g != 13
+        True
+
+The same applies to rich comparison operators.

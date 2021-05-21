@@ -1,0 +1,133 @@
+Scalar types:
+    - int: arbitrary precision integer, e.g. 42
+    - float: 64-bit floating point numbers, e.g. 4.2
+    - NoneType: the null object, e.g. None
+    - bool: boolean logical values, e.g. True, False
+
+int
+    - signed
+    - unlimited precision (as many digits as you need)
+    - literals are decimal by default,
+        e.g. 10 = 10
+    - can be specified as binary, octal, or hexadecimal
+      by using a dedicated prefix:
+        >>> 10
+        10
+        >>> 0b10
+        2
+        >>> 0o10
+        8
+        >>> 0x10
+        16
+    - can be created by calling the int() constructor,
+      which can convert from other types, such as floats:
+        >>> int(3.5)
+        3
+    - the rounding of integers is always towards zero:
+        >>> int(-3.5)
+        -3
+        >>> int(3.5)
+        3
+    - the int() constructor can also convert from strings:
+        >>> int("496.6")
+        Traceback (most recent call last):
+          File "<pyshell#8>", line 1, in <module>
+            int("496.6")
+        ValueError: invalid literal for int() with base 10: '496.6'
+        >>> int("496")
+        496
+    - you can convert a string to int, with a chosen base (e.g. 3),
+      by giving it as 2nd parameter to the constructor:
+        >>> int("1000", 3)
+        27
+        >>> int("1000", 2)
+        8
+
+float
+    - implemented as IEEE
+    - double-precision
+    - with 53 bits of binary precision (equivalent to 15-16 significant
+      digits in decimal)
+    - any literal number with a decimal is interpreted as a float:
+        >>> 3.125
+        3.125
+    - scientific notation can be used:
+        >>> 3e8
+        300000000.0
+    - REPL will print the most readable form:
+        >>> 1.65e-5
+        1.65e-05
+        >>> 1.65e-2
+        0.0165
+    - the float() constructor is used to convert to float:
+        >>> float(7)
+        7.0
+        >>> float("1.618")
+        1.618
+    - float() can also help create a "not a number" special floating pt value:
+        >>> float(nan)
+        Traceback (most recent call last):
+          File "<pyshell#20>", line 1, in <module>
+            float(nan)
+        NameError: name 'nan' is not defined
+        >>> float("nan")
+        nan
+    - and create +infinity or -infinity:
+        >>> float("inf")
+        inf
+        >>> float("-inf")
+        -inf
+    - every calculation between int and float is promoted to a float:
+        >>> 3.0 + 4
+        7.0
+
+None
+    - special null value
+    - represents the absence of a value
+    - REPL never prints None results:
+        >>> None
+        >>>
+    - we can assign None to variables, and check if something is None
+      using the "is" operator:
+        >>> a=None
+        >>> a is None
+        True
+
+bool
+    - represents logical states
+    - key importance in control flows
+    - has two possible values:
+        True
+        >>> True
+        True
+        >>> False
+        False
+    - the bool() constructor converts from other types to bool:
+        >>> bool(0)
+        False
+        >>> bool(0.0)
+        False
+        >>> bool(42)
+        True
+        >>> bool(-1)
+        True
+        >>> bool(-0.34)
+        True
+    - as shown above, both int zero and float zero are Falsey,
+      other values of int and float are Truthey
+    - an empty list is Falsey, all other lists are Truthey
+        >>> bool([])
+        False
+        >>> bool([0])
+        True
+    - empty strings are Falsey, others are Truthey
+        >>> bool("")
+        False
+        >>> bool("0")
+        True
+    - notice that strings spelling "True" and "False" are both True,
+      as nonempty strings:
+        >>> bool("True")
+        True
+        >>> bool("False")
+        True
