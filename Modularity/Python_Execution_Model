@@ -1,0 +1,16 @@
+def is a statement
+    - not merely a declaration!
+    - when a module is imported or run, top-level functions are defined
+
+python module
+    - any .py file constitutes a module
+    - they can be written for:
+        - convenient execution (from cli) => scripts
+        - convenient import (from other modules) => module
+        - both (when using the if __name__ == __main__ idiom) --> USE THIS
+
+python script
+    - designed to be run from shell, like win batch or unix shell scripts
+
+python program
+    - perhaps consists of many modules

@@ -1,0 +1,112 @@
+IDE/ text editor settings:
+    - make sure you have syntax highlighting
+    - make sure tabs are automatically converted to 4 spaces
+    - make sure your editor uses UTF8 encoding
+
+functions:
+    - syntax:
+        def <name>(<argument>):
+            <block>
+            return <value returned>
+    - example (with return value):
+        >>> def square(x):
+        ...     return x*x
+        ...
+        >>> square(5)
+        25
+    - functions can produce side effects, such as this printed text:
+        >>> def launc_missles():
+        ...     print("Missles launched!")
+        ...
+        >>> launc_missles()
+        Missles launched!
+    - notice this ^ is NOT A RETURN VALUE, but only a SIDE EFFECT of calling print
+    - it is preferred to use functions which return values, rather than cause effects
+    - you can have a side effect and still have the function return None:
+        >>> def even_or_odd(n):
+        ...     if n % 2 == 0:
+        ...         print("even")
+        ...         return      # here is an EXPLICIT RETURN giving None
+        ...     print("odd")
+        ...                     # here we have an IMPLICIT RETURN giving None
+        >>> even_or_odd(2)
+        even
+        >>> w = even_or_odd(31)
+        odd
+        >>> w is None
+        True
+        >>> x = even_or_odd(2)
+        even
+        >>> x is None
+        True
+    - ^ remember that the REPL does not return None results
+    - exponentiation ** (function with SINGLE POINT OF RETURN)
+        >>> def nth_root(radicand, n):
+        ...   return radicand ** (1/n)
+        ...
+        >>> result = nth_root(27,3)
+        >>> print(result)
+        3.0
+    - ordinal suffix function (MULTIPLE POINTS OF RETURN)
+      ordinals - l. porządkowe (1szy, 2gi, 3ci...)
+      cardinals - zwykłe (1, 2, 3)
+    - DECOMPOSITION - multiplicity of functions,
+      where only single short step is in one fct
+      it helps control complexity in programs
+
+        >>> def nth_root(radicand, n):
+        ...   return radicand ** (1/n)
+        ...
+
+        >>> def ordinal_suffix(value):
+        ...     s = str(value)
+        ...     if s.endswith('11'):
+        ...         return 'th'
+        ...     elif s.endswith('12'):
+        ...         return 'th'
+        ...     elif s.endswith('13'):
+        ...         return 'th'
+        ...     elif s.endswith('1'):
+        ...         return 'st'
+        ...     elif s.endswith('2'):
+        ...         return 'nd'
+        ...     elif s.endswith('3'):
+        ...         return 'rd'
+        ...     return 'th'
+        ...
+
+        >>> def ordinal(value):
+        ...     return str(value) + ordinal_suffix(value)
+        ...
+
+        >>> def display_nth_root(radicand, n):
+        ...     root = nth_root(radicand, n)
+        ...     message = "The " + ordinal(n) + " root of " \
+        ...               + str(radicand) + " is " + str(root)
+        ...     print(message)  # implicit return None
+        ...
+
+
+        >>> display_nth_root(27, 3)
+        The 3rd root of 27 is 3.0
+        >>>
+
+feature
+    - special functions' naming:
+        __feature__
+    - dunder = double underscore on both sides
+    - e.g. underscore underscore name underscore underscore would be pronounced: "dunder name"
+
+importing
+    - if a module has code that is bare (not in a function & not "if name == main"),
+      then importing it will EXECUTE IT!!!
+    - do remember to edit imported code that way
+    - qualifying a function name: words.fetch_words()
+    - unqualified call of fetch words:
+        from words import fetch_words
+        fetch_words()  # here, this is unqualified.
+
+making a script executable - python idiom dunder name
+    - gives the means to know whether the module was run as a script or imported into another module
+
+
