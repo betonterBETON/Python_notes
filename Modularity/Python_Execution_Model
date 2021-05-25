@@ -14,3 +14,22 @@ python script
 
 python program
     - perhaps consists of many modules
+
+
+when testing in the REPL:
+
+IMPORTING
+    - style 1
+        from words import (fetch_words, print_words)
+        # the parentheses are optional, but
+        # that way, we can have the imports broken into many lines!
+
+        print_words(fetch_words())
+        # we imported those two functions independently, so you may as well
+        # run print_words(['any', 'word', 'list']) and it will work too
+        # or any iterables:
+    - style 2
+        from words import *
+        # this is not recommended, b/c the code is beyond your control (don't know
+        # what functions you may import (potential namespace clashes!!)
+
