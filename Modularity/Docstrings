@@ -1,0 +1,19 @@
+docstrings
+    - literal strings, which document functions, modules, and classes
+    - occur as the first statement within a named block, e.g. function or module
+    - use triple quoted strings even for single line docstrings, b/c they can be
+      easily expanded
+    - official convention is PEP 257
+    - Sphinx - tool to create HTML from python docstrings
+    - Google python styleguide - use it
+
+comments:
+    - ideally, the code should be clear enough without ancillary explanation
+    - sometimes it is necessary to explain WHY code is written as it is
+
+windows:
+    - cmd:
+      words.py <URL> --> Pylauncher parses the shebang if given and runs words.py
+      using the right python version (PyLauncher: PEP 397)
+    - PowerShell:
+      .\words.py <url>
