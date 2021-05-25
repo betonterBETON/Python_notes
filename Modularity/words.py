@@ -20,12 +20,14 @@ def print_items(items):  # this will print ANY iterable collection
         print(item)
 
 
-def main():     # by putting main() in a separate function,
+def main():  # by putting main() in a separate function,
     # we can test the main block in the REPL (otherwise, we cound't call it from there,
     # if this block only appeared after the if-name-main idiom!)
     # then, in the REPL, do: "from words import main", and you can run it.
-    url = sys.argv[1]   # argv is a list of strings, which make the cmd arguments!
-    words = fetch_words(url)    # 'http://sixty-north.com/c/t.txt'
+    url = sys.argv[1]  # argv is a list of strings, which make the cmd arguments!
+    # this makes it unable to test from the REPL
+    # via (import * main()) or even (import * main() http....txt) !!!
+    words = fetch_words(url)  # 'http://sixty-north.com/c/t.txt'
     print_items(words)  # to get appropriate result, run: python3 words.py http://sixty-north.com/c/t.txt
 
 
