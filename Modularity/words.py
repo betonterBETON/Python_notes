@@ -14,11 +14,16 @@ def fetch_words():
 
 def print_words(story_words):  # this will print ANY iterable collection
     # such as a string, one char per line...
+    # or such as a list of numbers
+    # so "print words" isn't a great name, it's misleading
     for word in story_words:
         print(word)
 
 
-def main():
+def main():     # by putting main() in a separate function,
+    # we can test the main block in the REPL (otherwise, we cound't call it from there,
+    # if this block only appeared after the if-name-main idiom!)
+    # then, in the REPL, do: "from words import main", and you can run it.
     words = fetch_words()
     print_words(words)
 
