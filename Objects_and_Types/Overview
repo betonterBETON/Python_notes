@@ -1,0 +1,88 @@
+Overview
+    - Python object model
+    - named references to objects
+    - value equality vs identity equality
+    - passing and returning values
+    - Python's type system
+    - scopes in terms of name access limiting
+    - everything is an object
+
+Assigning to a variable
+    - x = 1000
+      creates an int of value 1000
+      x refers to that int
+
+      once we assign another value to x, the original object does not change
+      what changes is the reference
+      python creates a new immutable int and points the reference to it
+      the garbage collector will re-claim it at some point
+
+      integer objects are immutable and cannot be changed
+    - when we assign one variable to another, say: y = x, reference from x to 500 remains
+      and y now points to the same object int 500
+
+id()
+    - function, which returns a unique integer identifier for an object
+      that is constant for the life of the object
+    - not often used outside of debugging or tutorials
+        >>> a = 1729
+        >>> id(a)
+        139794798727056
+
+        >>> b = 1729
+        >>> id(b)
+        139794798725808
+
+        >>> b = a
+        >>> id(b)
+        139794798727056
+
+        >>> id(a) == id(b)
+        True
+
+is-operator
+        >>> a is b      # this tests for equality of identity (two references refer to the same object)
+        True
+        >>> a is None
+        False
+
+immutable objects
+    - if an int variable value changes, so does its reference object:
+        >>> t = 5
+        >>> id(t)
+        94373899503392
+        >>> t += 2  # this creates an int 2 object, adds to 5, creates and int 7 object, moves t ref to int 7 object
+        >>> id(t)
+        94373899503456
+    - REMEMBER: for all types of Python objects: the ASSIGNMENT OPERATOR only ever BINDS OBJECTS to names,
+      it NEVER COPIES AN OBJECT BY VALUE
+
+mutable objects
+    - if the same happens to a MUTABLE OBJECT, if two variables refer to it, their values will change
+        >>> r = [2, 4, 6]
+        >>> s = r   # they both point to the same object (s and r are names for the same object!!)
+        >>> s
+        [2, 4, 6]
+        >>> s[1] = 17   # object changes
+        >>> s           # therefore when we print s, we see the changed object
+        [2, 17, 6]
+        >>> r
+        [2, 17, 6]      # and so the object, to which r refers, is also changed!!! (names r and s refer to the same obj)
+        >>> s is r
+        True
+    - if a list has two names, we modify both at the same time! lists are MUTABLE
+    - to create an identical copy of an object, other method must be used
+
+Python doesn't really have variables in the sense of boxes holding a value. It only has
+NAMED REFERENCES TO OBJECTS.
+References act like labels, which enable us to retrieve objects.
+
+Value vs identity equality:
+        >>> p = [4, 7, 11]
+        >>> q = [4, 7, 11]
+    - equivalence (value equality)
+        >>> p == q
+        True
+    - identity equality
+        >>> p is q
+        False

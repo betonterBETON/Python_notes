@@ -131,3 +131,6 @@ bool
         True
         >>> bool("False")
         True
+
+dynamic typing
+    - types can be assumed, don't have to be predeclared

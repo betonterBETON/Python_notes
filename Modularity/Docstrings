@@ -17,3 +17,9 @@ windows:
       using the right python version (PyLauncher: PEP 397)
     - PowerShell:
       .\words.py <url>
+
+to read docstrings:
+    - import words
+      help(words)
+    - from words import *
+      help(function_name)
