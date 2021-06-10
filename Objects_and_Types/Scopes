@@ -1,0 +1,21 @@
+Scopes
+    - type declarations are unnecessary in Python
+    - variables are untyped name bindings to objects
+    - names can be rebound (reassigned) as often as necessary to objects of any type
+    - where are name bindings stored? check scopes and scoping rules in Python
+
+Types of scope in Python
+    - there are 4 types of scope in Python arranged in a hierarchy
+    - each scope is a context, in which names are stored
+    - from narrowest to broadest, the scopes are:
+        LOCAL       inside the current function
+        ENCLOSING   inside enclosing funcions
+        GLOBAL      at the top level of the module
+        BUILT-IN    in the special builtins module
+    - scopes comprise the LEGB rule: names are looked up in the narrowest relevant context
+    - scopes in Python do not correspond to source code blocks (as demarcated by indentation)
+        (for-loops and the like do not introduce new nested scopes)
+
+Rebinding global names:
+    - ocasionally we need to rebind a global name (one that is defined at module scope) from within a funciton
+

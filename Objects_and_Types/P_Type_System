@@ -1,0 +1,29 @@
+Python's type system
+    - dynamic
+        the type of an object reference isn't resolved until the program is running,
+        and needn't be specified upfront when the program is written
+        example:
+            def add(a, b):
+                 return a + b
+
+            add(5, 7)
+            add(3.1, 2.4)
+            add("news", "paper")
+            add([1, 6], [21, 107])
+            add("The answer is", 42)
+            Traceback (most recent call last):
+              File "<stdin>", line 1, in <module>
+              File "<stdin>", line 2, in add
+            TypeError: can only concatenate str (not "int") to str
+            >>>
+        the above example shows that we can use any type for which the addition operator has meaning.
+        the last error demonstrates strength
+    - strong
+        no coercion to change type
+
+
+
+
+Python will not generally perform implicit converstions between types
+(except: implicit conversion in control flow to bool)
+

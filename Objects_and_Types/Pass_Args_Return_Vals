@@ -1,0 +1,59 @@
+>>> def modify(k):
+...      k.append(39)
+...      print("k =", k)
+...
+...
+>>> m = [9, 15, 24]
+>>> modify(m) # function invocation
+k = [9, 15, 24, 39]
+>>> print(m)
+[9, 15, 24, 39]
+
+in above function, the original passed item changed too
+no copy of m is made !!!
+
+>>> def replace(g):
+...      g = [17, 28, 45]
+...      print("g =", g)
+...
+>>>
+>>> f = [14, 23, 37]
+>>> replace(f)
+g = [17, 28, 45]
+>>> print('f = ', f)
+f =  [14, 23, 37]
+
+the above function does not change passed argument f
+function invocation does refer to f, but then g is assigned to a newly constructed list in first line of function.
+that reference that g had, that was same as f, was overwritten.
+
+>>> def replace_contents(g):
+...      g[0] = 17
+...      g[1] = 28
+...      g[2] = 45
+...      print("g =", g)
+...
+...
+>>> f = [14, 23, 37]
+>>> replace_contents(f)
+g = [17, 28, 45]
+>>> f
+[17, 28, 45]
+
+the above functions does change f, because no new literal (no new list) was introduced,
+we were instead changing the contents of f one by one
+
+function arguments
+    - they are transferred using pass-by-object reference
+    - references to objects are copied (value (id()) of reference is copied),
+      not the objects themselves (not object value)
+
+>>> def f(d):
+...      return d
+...
+>>> c = [6, 10, 16]
+>>> e = f(c)
+>>> c is e
+True
+
+the above function shows, that no copy of object was made

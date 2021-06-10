@@ -1,0 +1,104 @@
+formal function arguments:
+    - specified when function is defined with 'def' keyword
+    - comma separated list of the argument names
+    - can be optional by providing default values
+    - example:
+        >>> def banner(message, border='-'):
+        ...      line = border * len(message)
+        ...      print(line)
+        ...      print(message)
+        ...      print(line)
+        ...
+        >>>
+        >>> banner("Norwegian Blue")
+        --------------
+        Norwegian Blue
+        --------------
+
+        >>> banner("Sun, Moon and Stars", "*")
+        *******************
+        Sun, Moon and Stars
+        *******************
+
+        >>> banner("Sun, Moon and Stars", border="*")
+        *******************
+        Sun, Moon and Stars
+        *******************
+
+    - when defining a function with default args, the parameters with default
+      args must come AFTER those without defaults (otherwise syntax err)
+    - those without default are positional argument, and those with default- keyword arguments
+    - positional arguments are matched up in a sequence with the formal arguments (by position),
+      while the keyword arguments are matched by name.
+    - if we use keyword args for both parameters, we can supply them in any order
+        >>> banner(border=".", message="Hello from Earth")
+        ................
+        Hello from Earth
+        ................
+    - STILL all keyword arguments must be specified after the positional arguments
+
+
+>>> import time
+>>>
+>>> time.ctime()
+'Mon May 31 11:57:07 2021'
+>>> def show_default(arg=time.ctime()):
+...     print(arg)
+...
+>>> show_default()
+Mon May 31 11:57:07 2021
+>>> show_default()
+Mon May 31 11:57:07 2021
+>>> show_default()
+Mon May 31 11:57:07 2021
+
+in the above function, notice the displayed time NEVER progresses
+    - the def is a statement executed at runtime (binds a function definition to name)
+    - the default arguments are evaluated only once, when def is executed
+    - immutable default values, like an int or string, cause no problems
+    - mutable default values can cause confusing effects
+
+mutable default values
+    - example:
+        >>> def add_spam(menu=[]):
+        ...      menu.append("spam")
+        ...      return menu
+        ...
+
+        >>> breakfast = ['bacon', 'eggs']
+        >>> add_spam(breakfast)
+        ['bacon', 'eggs', 'spam']
+
+        >>> lunch = ['baked beans']
+        >>> add_spam(lunch)
+        ['baked beans', 'spam']
+
+        >>> add_spam(lunch)
+        ['baked beans', 'spam', 'spam']
+
+        >>> add_spam()
+        ['spam']
+        >>> add_spam()
+        ['spam', 'spam']
+        >>> add_spam()
+        ['spam', 'spam', 'spam']
+
+    - the reason why spam piles on for the default option, is b/c the menu list is created once
+      (so it is empty only when def statement is evaluated), and mutated every time the function is called w/out input.
+
+    - ALWAYS USE IMMUTABLE OBJECTS FOR DEFAULT VALUES
+    - solution:
+        >>> def add_spam(menu=None):
+        ...      if menu is None:
+        ...          menu = []
+        ...      menu.append('spam')
+        ...      return menu
+        ...
+        ...
+        >>> add_spam()
+        ['spam']
+        >>> add_spam()
+        ['spam']
+        >>> add_spam()
+        ['spam']
+
