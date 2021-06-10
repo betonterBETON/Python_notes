@@ -18,4 +18,32 @@ Types of scope in Python
 
 Rebinding global names:
     - ocasionally we need to rebind a global name (one that is defined at module scope) from within a funciton
+    - if you use the same name within function scope (local) as has been defined on global scope,
+      the function variable SHADOWS the global one, which mean the global cannot be accessed:
+        >>> count = 0
+        >>> def show_count():
+        ...     print(count)
+        ...
+        >>> def set_count(c):
+        ...     count = c
+        ...
+        >>> show_count()
+        0
+        >>> set_count(5)
+        >>> show_count()
+        0
+    - 'global' keyword enables us to rebing global names into a local namespace
+        >>> count = 0
+        >>> def show_count():
+        ...     print(count)
+        ...
+        >>> def set_count(c):
+        ...     global count
+        ...     count = c
+        ...
+        >>> show_count()
+        0
+        >>> set_count(5)
+        >>> show_count()
+        5
 

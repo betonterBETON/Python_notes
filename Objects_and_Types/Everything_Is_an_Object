@@ -1,0 +1,76 @@
+ZEN: Special cases aren't special enough to break the rules
+    - we follow patterns not ti kill complexity, but to master it
+    - all variables are references to objects!
+    - functions and modules are also objects in Python
+        >>> import words
+        >>> type(words)
+        <class 'module'>
+
+Everything is an object:
+    - to see the attributes of an object, use the dir() function:
+        >>> dir(words)
+        ['__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__', 'fetch_words', 'main', 'print_items', 'sys', 'urlopen']
+
+      notice among the attributes are:
+        - function fetch_words (that we defined),
+        - any imported names, such as sys and urlopen
+        - special attributes (dunder name, dunder doc, etc.)
+        - we can use the type() function on any of these attributes!
+            >>> type(words.fetch_words)
+            <class 'function'>
+        - we can also call the dir() func to reveal the attributes of functions:
+            >>> dir(words.fetch_words)
+            ['__annotations__', '__call__', '__class__', '__closure__', '__code__', '__defaults__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__get__', '__getattribute__', '__globals__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__kwdefaults__', '__le__', '__lt__', '__module__', '__name__', '__ne__', '__new__', '__qualname__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__']
+        - we can inspect those function attributes:
+            >>> words.fetch_words.__name__
+            'fetch_words'
+            >>> words.fetch_words.__doc__
+            'Fetch a list of words from a URL.\n\n    Args:\n        url: The URL of a UTF-8 text document.\n\n    Returns:\n        A list of strings containing the words from\n        the document.\n    '
+
+Summary:
+    - python uses named references to objects
+    - assignment attaches a name tag to an object
+    - assigning one name to another makes them both point to the same object
+    - python garbage collector will reclaim unreachable objects (objects with no references)
+    - the id() function returns a unique int id for an object
+    - the id() funct should never be used in production
+    - 'is' operator determines equality of identity (two names referring to the same obj)
+    - to test for euivalence, use '==' operator
+    - function arguments are passed by obj reference
+    - rebinding function arguments loses original obj reference (dict-> not?)
+      (if a formal argument is rebound through assignment, the reference to the passed in obj is lost)
+    - to change a mutable argument, you should replace its contents rather than replace whole object
+    - return statement passes back and object reference to the caller, no copies are made
+    - function arguments can have a default value
+    - defaults are evaluated once, when the function is defined
+    - python uses dynamic typing, so we don't need to specify reference types in advance
+    - python usees strong typing, so types are not coerced to match
+      (int will not automatically become str just to perform equality check, for example)
+    - python names are looked up in 4 nested scopes, according to LEGB rule:
+        local
+        enclosed
+        global
+        built-in
+    - global references can be read from a local scope
+    - assigning to a global reference in local scope requires the 'global' keyword
+    - everything in python is an object, incl. modules and functions
+    - import and def keywords result in binding names to objects
+    - the builtin type() function reports the type of an object
+    - the builtin dir() function can be used to introspect the attributes of an object
+      and return a list of its attribute names
+    - the name of a function or module can be accessed through its __name__ attribute
+    - the docstring for a module or function can be accessed through its __doc__ attribute
+    - len() measures the length of a string
+    - if we multiply a string by an integer with '*' operator, we get a new string, with
+      the old one repeated int number of times (repetition operation)
+
+
+
+
+
+
+
+
+
+
+
