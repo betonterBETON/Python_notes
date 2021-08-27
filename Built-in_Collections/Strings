@@ -1,0 +1,96 @@
+Strings
+
+String operations
+length:
+    >>> len("llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch")
+    58
+concatenation with plus sign:
+    >>> "New" + "found" + "land"
+    'Newfoundland'
+concatenation with augmented assignment operator (incremental addition):
+    >>> s = "New"
+    >>> s += "found"
+    >>> s += "land"
+    >>> s
+    'Newfoundland'
+
+Strings are immutable. You cannot modify them in place.
+That is, variable names get a new reference every time we change the string.
+
+Better to use str.join() than multiple plus operations
+This method results in fewer temporaries (references, which take up memory)
+
+str.join() is called on the separator string object, while the string of interest is passed as arg
+Example:
+    >>> colors = ';'.join(['#45ff23', '#2321fa', '#1298a3', '#a32312'])
+    >>> colors
+    '#45ff23;#2321fa;#1298a3;#a32312'
+
+Splitting:
+    >>> colors.split(';')
+    ['#45ff23', '#2321fa', '#1298a3', '#a32312']
+
+Idiom for stringifying lists of strings:
+    >>> ''.join(['high', 'way', 'man'])
+    'highwayman'
+
+MOMENT OF ZEN
+The way may not be obvious at first
+To concatenate, invoke join on empy text
+Something from nothing
+
+Splitting using a separator:
+    >>> "unforgetable".partition('forget')
+    ('un', 'forget', 'able')
+Use str.partition() with tuple unpacking:
+    >>> departure, separator, arrival = "London:Edinburgh".partition(':')
+    >>> departure
+    'London'
+    >>>
+    >>> arrival
+    'Edinburgh'
+Since we are not interested in capturing the separator value, you may use the convention,
+that the underscore is for dummy values:
+    >>> origin, _, destination = "Seattle-Boston".partition('-')
+    >>> origin
+    'Seattle'
+    >>> _
+    '-'
+
+String formatting by replacement fields <-- format arguments:
+    >>> "The age of {0} is {1}".format('Jim', 32)
+    'The age of Jim is 32'
+You can use the field more than once:
+    >>> "The age of {0} is {1}. {0}'s birthday is on {2}".format('Fred', 24, 'October 31')
+    "The age of Fred is 24. Fred's birthday is on October 31"
+If each value is used only once, and in the same order as args, omit numbers:
+    >>> "Reticulating spline {} of {}.".format(4, 23)
+    'Reticulating spline 4 of 23.'
+You can used keyword arguments for format(), then use named fields:
+    >>> "Current position {latitude} {longitude}".format(latitude="60N", longitude="5E")
+    'Current position 60N 5E'
+For keyword, you can use collections and objects other than string:
+    >>> "Galactic position x={pos[0]}, y={pos[1]}, z={pos[2]}".format(pos=(65.2, 23.1, 82.2))
+    'Galactic position x=65.2, y=23.1, z=82.2'
+You can import entire modules (they are objects!!) into the method call:
+    >>> import math
+    >>> "Math constants: pi={m.pi}, e={m.e}".format(m=math)
+    'Math constants: pi=3.14159265359, e=2.71828182846'
+For floating point formatting (3 decimal places):
+    >>> "Math constants: pi={m.pi:.3f}, e={m.e:.3f}".format(m=math)
+    'Math constants: pi=3.142, e=2.718'
+This method can get quite verbose (many words)
+
+Literal string interpolation (f-strings)
+    >>> value = 4 * 20
+    >>> f'The value is {value}'
+    'The value is 80'
+    >>> import datetime
+    >>> f'The current time is {datetime.datetime.now().isoformat()}.'
+    'The current time is 2021-08-27T13:38:01.621218.'
+f-strings support floating point formatting:
+    >>> import math
+    >>> f'Math constants: pi={math.pi}, e={math.e}'
+    'Math constants: pi=3.141592653589793, e=2.718281828459045'
+    >>> f'Math constants: pi={math.pi:.3f}, e={math.e:.3f}'
+    'Math constants: pi=3.142, e=2.718'

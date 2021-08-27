@@ -1,0 +1,94 @@
+Tuple
+    - immutable sequence of arbitrary objects
+    - once created, you cannot add, remove, replace elements within it
+    - use parentheses, but otherwise look like lists
+
+Example:
+    >>> t = ('Norway', 4.953, 3)
+    >>> t
+    ('Norway', 4.953, 3)
+    >>> t[0]
+    'Norway'
+    >>> t[2]
+    3
+    >>> len(t)
+    3
+
+Concatenating tuples:
+    >>> t + (338186.0, 265e9)
+    ('Norway', 4.953, 3, 338186.0, 265000000000.0)
+Repeating tuples:
+    >>> t * 3
+    ('Norway', 4.953, 3, 'Norway', 4.953, 3, 'Norway', 4.953, 3)
+
+Tuples can contain any object, so you can create nested tuples.
+    >>> a = ((220, 284), (1184, 1210), (2620, 2924), (5020, 5564), (6232, 6368))
+    >>> a[2][1]
+    2924
+
+Creating single element tuples!!!
+    >>> h = (391)
+    >>> h
+    391
+    >>> type(h)
+    <type 'int'>
+    >>>
+    >>> k = (391,)
+    >>> k
+    (391,)
+    >>> type(k)
+    <type 'tuple'>
+
+Creating empty tuples
+    >>> e = ()
+    >>> e
+    ()
+    >>> type(e)
+    <type 'tuple'>
+
+Creating tuples with many items w/out parentheses:
+    >>> p = 1, 1, 1, 4, 6, 19
+    >>> p
+    (1, 1, 1, 4, 6, 19)
+    >>> type(p)
+    <type 'tuple'>
+
+Functions return tuples because parentheses are omitted:
+>>> def minmax(items):
+...      return min(items), max(items)
+...
+>>> minmax([83, 33, 84, 32, 85, 31, 86])
+(31, 86)
+>>>
+>>> lower, upper = minmax([83, 33, 84, 32, 85, 31, 86])
+>>> lower
+31
+>>> upper
+86
+
+Returning multiple values as a tuple is often used with tuple unpacking
+
+Tuple unpacking:
+    destructurizing by unpacking data structures into named references
+    like above (tuple items have been unpacked from tuple returned by function)
+Example (awesome stuff!):
+    (a, (b, (c, d))) = (4, (3, (2, 1)))
+    a
+    b
+    c
+    d
+Example (swapping values enabled by tuple unpacking)
+    >>> a = 'jelly'
+    >>> b = 'bean'
+    >>> a, b = b, a
+    >>> a
+    'bean'
+    >>> b
+    'jelly'
+
+Any iterable item can be easily converted into tuple so:
+    >>> tuple([561, 1105, 1729, 2465])
+    (561, 1105, 1729, 2465)
+    >>>
+    >>> tuple("Carmichael")
+    ('C', 'a', 'r', 'm', 'i', 'c', 'h', 'a', 'e', 'l')

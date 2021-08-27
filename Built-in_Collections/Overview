@@ -1,0 +1,13 @@
+Collection types:
+    - str
+    - list
+    - dict
+New collection types:
+    - tuple
+      immutable sequence of objects
+    - range
+      arithmetic progressions of integers
+    - set
+      mutable collection of unique immutable objects
+
+Protocols that unite collections
