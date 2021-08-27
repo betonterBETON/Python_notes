@@ -1,0 +1,58 @@
+Range
+    sequence representing arithmetic progression of integers
+
+Ranges:
+    have no literal form
+    created using range() constructor
+
+Examples:
+    >>> range(5)
+    range(0, 5)
+
+the stop value is 1 less than arg ("half open" range convention - starting num included, stopping num not included)
+    >>> for i in range(5):
+    ...     print(i)
+    ...
+    0
+    1
+    2
+    3
+    4
+
+    >>> range(5, 10)
+    range(5, 10)
+
+This will give consecutive lists (note 10 is stop and start)
+    >>> list(range(5, 10))
+    [5, 6, 7, 8, 9]
+    >>> list(range(10, 15))
+    [10, 11, 12, 13, 14]
+
+You can provide a step:
+    >>> list(range(0, 10, 2))
+    [0, 2, 4, 6, 8]
+
+Range does not have keyword arguments!!! It's functionality is dependent on amount of args:
+1: range(stop)
+2: range(start, stop)
+3: range(start, stop, step)
+
+Enumerate function
+    constructs and iterable of pairs (index, value) around another iterable object.
+Example:
+    >>> for p in enumerate(t):
+    ...     print(p)
+    ...
+    (0, 6)
+    (1, 372)
+    (2, 8862)
+    (3, 148800)
+    (4, 2096886)
+    >>> for i, v in enumerate(t):
+    ...     print(f"i = {i}, v = {v}")
+    ...
+    i = 0, v = 6
+    i = 1, v = 372
+    i = 2, v = 8862
+    i = 3, v = 148800
+    i = 4, v = 2096886
