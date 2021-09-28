@@ -24,26 +24,248 @@ Lists
         [186, 4431]
         >>> s[1:-1]
         [186, 4431, 74400]
+
+        half open range convention (these two slices together make up the whole list):
         >>> s[2:]
         [4431, 74400, 1048443]
         >>> s[:2]
         [3, 186]
+
         >>> s[:]
         [3, 186, 4431, 74400, 1048443]
+
+        assigning references never copies an object, only copies a reference to an object
         >>> t = s
         >>> t is s
         True
+
+        this is how to actually copy a list (not reference), thus making a new object
         >>> r = s[:]
         >>> r is s
         False
         >>> r == s
         True
+
+        this is a nicer, more readable method of copying a list:
         >>> u = s.copy()
         >>> u is s
         False
+
+        here is another, using the list constructor (works with any iterable, not just list):
         >>> v = list(s)
         >>>
         >>> v
         [3, 186, 4431, 74400, 1048443]
+
+    Copying lists cd.
+    examples:
+        Notice that the copy is shallow:
+        >>> a = [ [1, 2], [3, 4] ]
+        >>>
+        >>> b = a[:]
+        >>> a is b
+        False
+
+        Even though the toplevel lists are not the same objects^, the references of their items stay the same!!!
+        >>> a == b
+        True
+        >>> a[0]
+        [1, 2]
+        >>> b[0]
+        [1, 2]
+        >>> a[0] is b[0]
+        True
+        LOOK HERE^ !!! The items of a and b are the same objects
+
+        Assigning a new item to a, does not change b for that index
+        >>> a[0] = [8, 9]
+        >>> a[0]
+        [8, 9]
+        >>> b[0]
+        [1, 2]
+        But if we perform a mutation of an item, this changes for both!
+        >>> a[1].append(5)
+        >>> a[1]
+        [3, 4, 5]
+        >>> b[1]
+        [3, 4, 5]
+        >>> a
+        [[8, 9], [3, 4, 5]]
+        >>> b
+        [[1, 2], [3, 4, 5]]
+
+        If you need to perform a DEEP COPY of nested lists, take a look at the copy module of python standard library
+
+    Multiplication
+    examples:
+        >>> c = [21, 37]
+        >>>
+        >>> d = c * 4
+        >>> d
+        [21, 37, 21, 37, 21, 37, 21, 37]
+
+        this is useful to initialize a list of known length:
+        >>> [0] * 9
+        [0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+        however, do remember that in nested lists, it also copies the reference, so each item is essentially
+        the same object!!! if we edit one, we edit all:
+        >>> s = [ [-1, +1] ] * 5
+        >>> s
+        [[-1, 1], [-1, 1], [-1, 1], [-1, 1], [-1, 1]]
+        >>> s[2].append(7)
+        >>> s
+        [[-1, 1, 7], [-1, 1, 7], [-1, 1, 7], [-1, 1, 7], [-1, 1, 7]]
+        EACH ELEMENT OF THE OUTER LIST IS A REFERENCE TO THE SAME NESTED LIST
+
+    Indexes
+    examples:
+        list.index()
+            finds the location of object in a list
+            returns the index of first element that equals (equivalence) the argument
+
+            >>> w = "the quick brown fox jumps over the lazy dog".split()
+            >>> w
+            ['the', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog']
+
+            find the index of first occurrence of 'fox'
+            >>> i = w.index('fox')
+            >>> i
+            3
+            >>> w[i]
+            'fox'
+
+            if passed a non existent element, ValueError occurs:
+            >>> w.index('unicorn')
+            Traceback (most recent call last):
+              File "<stdin>", line 1, in <module>
+            ValueError: 'unicorn' is not in list
+
+    Ocurrence
+    examples:
+        how many times an item occurs in list:
+        >>> w.count("the")
+        2
+
+        test for membership:
+        >>> 37 in [1, 78, 9, 37, 34, 53]
+        True
+
+        test for non-membership
+        >>> 78 not in [1, 78, 9, 37, 34, 53]
+        False
+
+    Removing items from list
+    examples:
+        remove sth by index
+            del a_list[index]
+
+            >>> u = "jackdaws love my big sphinx of quartz".split()
+            >>>
+            >>> u
+            ['jackdaws', 'love', 'my', 'big', 'sphinx', 'of', 'quartz']
+            >>> del u[3]
+            >>> u
+            ['jackdaws', 'love', 'my', 'sphinx', 'of', 'quartz']
+        remove element by value (will remove first ocurrence)
+            >>> u.remove('jackdaws')
+            >>> u
+            ['love', 'my', 'sphinx', 'of', 'quartz']
+
+            the above is equivalent to:
+            >>> del u[u.index('quartz')]
+
+            will raise value error if item is not present:
+            >>> u.remove('pyramid')
+            Traceback (most recent call last):
+              File "<stdin>", line 1, in <module>
+            ValueError: list.remove(x): x not in list
+
+    Inserting items into lists:
+    examples:
+        list.insert()
+            inserts item into list
+            accepts an item and the index of the new item
+
+        >>> a = ' I accidentally the whole universe'.split()
+        >>>
+        >>> a
+        ['I', 'accidentally', 'the', 'whole', 'universe']
+        >>> a.insert(2, "destroyed")
+        >>> a
+        ['I', 'accidentally', 'destroyed', 'the', 'whole', 'universe']
+        >>> ' '.join(a)
+        'I accidentally destroyed the whole universe'
+
+    List addition:
+    3 ways:
+    ALL of these methods work with ANY ITERABLE on the right hand side
+        >>> m = [2, 1, 3]
+        >>> n = [4, 7, 11]
+
+        >>> k = m + n
+        >>> k
+        [2, 1, 3, 4, 7, 11]
+
+        Modify k in place with augmented (addition) assignment operator:
+        >>> k += [18, 29, 47]
+        >>> k
+        [2, 1, 3, 4, 7, 11, 18, 29, 47]
+
+        >>> k.extend([76, 129, 199])
+        >>> k
+        [2, 1, 3, 4, 7, 11, 18, 29, 47, 76, 129, 199]
+
+    List modification in place, common operations:
+        list.reverse() and list.sort()
+    examples:
+        list.reverse()
+            >>> g = [1, 11, 21]
+            >>> g.reverse()
+            >>> g
+            [21, 11, 1]
+
+        list.sort(reverse=True/False, key = ...)
+            >>> d = [17, 41, 29]
+            >>> d.sort()
+            >>> d
+            [17, 29, 41]
+
+            >>> d.sort(reverse=True)
+            >>> d
+            [41, 29, 17]
+
+            the key argumenr can be any callable object that accepts a single parameter
+            items are passed to the callable and sorted on its return value
+            the items will be sorted according to the relative order of the keys
+                h.sort(key=len)
+                ^ if h is a list of words, those words will be sorted shortest to longest
+
+    Out of place modification:
+    the following methods can work on any finite iterable source object
+        to reverse:
+            reversed() is the equivalent for the in-place list.reverse()
+            reversed() returns a reverse iterator
+            pass it to list() constructor to get the actual list
+            example:
+                >>> p = [9, 3, 1, 0]
+                >>> q = reversed(p)
+                >>> q
+                <list_reverseiterator object at 0x7f02d55f6690>
+                >>> p
+                [9, 3, 1, 0]
+                >>> list(q)
+                [0, 1, 3, 9]
+        to sort:
+            sorted() is the equivalent for the in-place list.sort()
+            returns a new list
+            example:
+                >>> x = [4, 9, 2, 1]
+                >>> y = sorted(x)
+                >>> y
+                [1, 2, 4, 9]
+                >>> x
+                [4, 9, 2, 1]
+
 
 
