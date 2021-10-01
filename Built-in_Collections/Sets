@@ -1,0 +1,193 @@
+Sets
+    unordered collection of unique elements
+    mutable (can add and remove elements)
+    the elements must be immutable, like keys of dictionaries
+    is unordered
+    iterable, but the order is arbitrary
+
+    >>> p = {6, 28, 496, 8128, 33550336}
+    >>> p
+    {33550336, 8128, 6, 496, 28}
+    >>>
+    >>> type(p)
+    <class 'set'>
+    >>>
+
+    Examples:
+        empty curly braces create a dictionary!
+            >>> d = {}
+            >>> type(d)
+            <class 'dict'>
+            >>>
+
+        this is how you create an empty set with a set() constructor:
+            >>> e = set()
+            >>> e
+            set()
+            >>>
+
+        the set() contstructor can create a set from any iterable, DISCARDING DUPLICATES:
+            >>> s = set([2, 4, 16, 64, 4096, 65536, 262144])
+            >>> s
+            {4096, 64, 2, 65536, 4, 262144, 16}
+            >>>
+
+        The common use of set() is exactly that! To remove duplicates from objects:
+            >>> t = [1, 4, 2, 1, 7, 9, 9]
+            >>> set(t)
+            {1, 2, 4, 7, 9}
+
+Iterate over a set (remember, order is arbitrary):
+    >>> for x in {1, 2, 4, 8, 16, 32}:
+    ...     print(x)
+    ...
+    32
+    1
+    2
+    4
+    8
+    16
+
+Check for membership:
+    >>> q = { 2, 9, 6, 4 }
+    >>> 3 in q
+    False
+    >>>
+    >>> 3 not in q
+    True
+    >>>
+
+To use a single element, use set.add() method:
+    >>> k = {81, 108}
+    >>> k
+    {81, 108}
+    >>>
+    >>> k.add(54)
+    >>> k
+    {81, 108, 54}
+    >>>
+    >>> k.add(12)
+    >>> k
+    {81, 108, 12, 54}
+    >>>
+Adding an item that already exists does not produce error! And has no effect.
+    >>> k.add(108)
+
+Add multiple elements in one go with the set.update() method,
+for which you can use ANY ITERABLE, such as list, set etc.
+    >>> k.update([37, 128, 97])
+    >>> k
+    {128, 97, 37, 108, 12, 81, 54}
+    >>>
+
+Remove elements from a set:
+    set.remove() requires that the element exists in set, or else it throws error:
+        >>> k.remove(97)
+        >>> k
+        {128, 37, 108, 12, 81, 54}
+        >>>
+        >>> k.remove(98)
+        Traceback (most recent call last):
+          File "<stdin>", line 1, in <module>
+        KeyError: 98
+        >>>
+
+    set.discard() does not throw errors, and simply has no effect when the item
+    is not a member of the set:
+        >>> k.discard(98)
+        >>> k
+        {128, 37, 108, 12, 81, 54}
+        >>>
+
+Perform a shallow copy of the set, copying references, but not objects:
+    with set.copy() method:
+        >>> j = k.copy()
+        >>> j
+        {128, 81, 37, 54, 108, 12}
+        >>>
+    with the set() constructor:
+        >>> m = set(j)
+        >>> m
+        {128, 81, 37, 54, 108, 12}
+
+Sets allow for SET ALGEBRA OPERATIONS!!!
+    unions
+    differences
+    intersections
+Can help determine if one set is a:
+    subset
+    superset
+    disjoint
+of another set.
+
+Algebra examples:
+    >>> blue_eyes = {'Olivia', 'Harry', 'Lily', 'Jack', 'Amelia'}
+    >>> blond_hair = {'Harry', 'Jack', 'Amelia', 'Mia', 'Joshua'}
+    >>> smell_hcn = {'Harry', 'Amelia'}
+    >>> taste_ptc = {'Harry', 'Lily', 'Amelia', 'Lola'}
+    >>> o_blood = {'Mia', 'Joshua', 'Lily', 'Olivia'}
+    >>> b_blood = {'Amelia', 'Jack'}
+    >>> a_blood = {'Harry'}
+    >>> ab_blood = {'Joshua', 'Lola'}
+
+    To find people with blue eyes, blond hair, or both
+    (put two sets together without duplicates):
+        >>> blue_eyes.union(blond_hair)
+        {'Joshua', 'Amelia', 'Jack', 'Lily', 'Mia', 'Olivia', 'Harry'}
+        >>>
+
+    We can check that the union is a commutative operation (A u B == B u A)
+        >>> blue_eyes.union(blond_hair) == blond_hair.union(blue_eyes)
+        True
+        >>>
+
+    To find all people that have both blue eyes and blond hair, do intersection:
+        >>> blue_eyes.intersection(blond_hair)
+        {'Amelia', 'Jack', 'Harry'}
+        >>>
+
+    The intersection is also commutative (A n B == B n A)
+        >>> blue_eyes.intersection(blond_hair) == blond_hair.intersection(blue_eyes)
+        True
+        >>>
+
+    Find all elements that are in the first, but not the second set:
+        >>> blond_hair.difference(blue_eyes)
+        {'Joshua', 'Mia'}
+        >>>
+
+    This is non-commutative:
+    People with blond hair without blue eyes are
+    not the same as people who have blue eyes but not blond hair:
+        >>> blond_hair.difference(blue_eyes) == blue_eyes.difference(blond_hair)
+        False
+        >>>
+
+    To determine people with either blue eyes or blond hair but not both at once:
+    (stuff in A or in B but not stuff present in both A and B)
+        >>> blond_hair.symmetric_difference(blue_eyes)
+        {'Joshua', 'Mia', 'Lily', 'Olivia'}
+        >>>
+
+    It is commutative:
+        >>> blond_hair.symmetric_difference(blue_eyes) == blue_eyes.symmetric_difference(blond_hair)
+        True
+        >>>
+
+Predicate methods telling about the relationship between sets:
+    Are all elements of first set present in second set?
+        >>> smell_hcn.issubset(blond_hair)
+        True
+        >>>
+
+    Are all elements of second set present in first set?
+        >>> taste_ptc.issuperset(smell_hcn)
+        True
+        >>>
+
+    Test if groups are mutually exclusive:
+    (your blood type is A or O, never both at the same time)
+        >>> a_blood.isdisjoint(o_blood)
+        True
+        >>>
+

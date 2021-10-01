@@ -1,0 +1,181 @@
+Dictionaries
+    - delimited with curly braces
+    - are collections of comma separated key-value pairs
+    example:
+        >>> urls = { 'Google': 'http://google.com',
+        ...              'Pluralsight': 'http://pluralsight.com',
+        ...          'Sixty North': 'http://sixty-north.com',
+        ...          'Microsoft': 'http://microsoft.com' }
+        >>> urls['Pluralsight']
+        'http://pluralsight.com'
+    - keys
+        must be unique, each key is associated with exactly one value
+        must be immutable!! (strings, numbers, tuples)
+    - values
+        can be duplicated
+        can be mutable
+    - internally, keys are references (pointers) to key objects,
+      while values are references to value objects
+    - never rely on the order of items in the dictionary!!
+
+dict() constructor
+    can be used to turn collections of pairs into dicts:
+        >>> names_and_ages = [ ('Alice', 32), ('Bob', 48), ('Charlie', 28), ('Daniel', 33) ]
+        >>>
+        >>> d = dict(names_and_ages)
+        >>> d
+        {'Alice': 32, 'Bob': 48, 'Charlie': 28, 'Daniel': 33}
+    you can pass keys and values as keyword arguments:
+        >>> phonetic = dict(a='alfa', b='bravo', c='charlie', d='delta', e='echo', f='foxtrot')
+        >>>
+        >>> phonetic
+        {'a': 'alfa', 'b': 'bravo', 'c': 'charlie', 'd': 'delta', 'e': 'echo', 'f': 'foxtrot'}
+
+dictionary copying
+    is shallow by default, i.e. only references to key and value objects are copied
+    ways:
+        use the copy method:
+            >>> d = dict(goldenrod=0xDAA520, indigo=0x4B0082, seashell=0xFFF5EE)
+            >>> e = d.copy()
+            >>> e
+            {'goldenrod': 14329120, 'indigo': 4915330, 'seashell': 16774638}
+        pass an existing dictionary to the dict constructor
+            >>> f = dict(e)
+            >>> f
+            {'goldenrod': 14329120, 'indigo': 4915330, 'seashell': 16774638}
+
+add one dictionary to another (extend a dictionary)
+    original_dict.update(dict_to_add_to_original)
+        >>> g = dict(wheat=0xF5DEB3, khaki=0xF0E68C, crimson=0xDC143C)
+        >>> f.update(g)
+        >>> f
+        {'goldenrod': 14329120, 'indigo': 4915330, 'seashell': 16774638, 'wheat': 16113331, 'khaki': 15787660, 'crimson': 14423100}
+    if keys in the argument dictionary are in the original dict, then values get overwtritten
+        >>> stocks = {'GOOG': 891, 'AAPL': 416, 'IBM': 194}
+        >>> stocks.update({'GOOG': 894, 'YHOO': 25})
+        >>> stocks
+        {'GOOG': 894, 'AAPL': 416, 'IBM': 194, 'YHOO': 25}
+
+dictionary iteration
+    dictionaries are iterable (can be used with for-loops)
+    the dictionary yields the next key on each iteration
+    values can be retrieved using the square-bracket operator (by lookup)
+
+    example:
+        >>> colors = dict (aquamarine='#7FFFD4', burlywood = '#DEB887',
+        ...               chartreuse='#7FFF00', cornflower='#6495ED',
+        ...               firebrick='#B22222', honeydew='#F0FFF0',
+        ...               maroon='#B03060', sienna='#A0522D')
+        >>>
+
+    iteration yields keys:
+        >>> for key in colors:
+        ...     print(f"{key} => {colors[key]}")
+        ...
+        aquamarine => #7FFFD4
+        burlywood => #DEB887
+        chartreuse => #7FFF00
+        cornflower => #6495ED
+        firebrick => #B22222
+        honeydew => #F0FFF0
+        maroon => #B03060
+        sienna => #A0522D
+        >>>
+    ^notice the keys are retrieved in arbitrary order!
+
+    use dict.values() method to get values:
+        >>> for value in colors.values():
+        ...     print(value)
+        ...
+        #7FFFD4
+        #DEB887
+        #7FFF00
+        #6495ED
+        #B22222
+        #F0FFF0
+        #B03060
+        #A0522D
+        >>>
+
+    you can also use a keys() method, but it's the same as first example
+        >>> for key in colors.keys():
+        ...     print(key)
+        ...
+        aquamarine
+        burlywood
+        chartreuse
+        cornflower
+        firebrick
+        honeydew
+        maroon
+        sienna
+        >>>
+
+    iterate over keys and values in tandem (yields (key, value) tuple on each iteration)
+    by using tuple unpacking we can get both key and value without the extra lookup! <3
+        >>> for key, value in colors.items():
+        ...     print(f"{key} => {value}")
+        ...
+        aquamarine => #7FFFD4
+        burlywood => #DEB887
+        chartreuse => #7FFF00
+        cornflower => #6495ED
+        firebrick => #B22222
+        honeydew => #F0FFF0
+        maroon => #B03060
+        sienna => #A0522D
+
+Membership tests:
+    using the "in" operator works on the keys:
+    example:
+        >>> symbols = dict (usd='$', gbp='£', nzd='$',krw='₩',
+        ...                     eur='€', jpy='¥',  nok='kr', hhg='Pu', ils='₪')
+        >>> symbols
+        {'usd': '$', 'gbp': '£', 'nzd': '$', 'krw': '₩', 'eur': '€', 'jpy': '¥', 'nok': 'kr', 'hhg': 'Pu', 'ils': '₪'}
+        >>>
+        >>> 'nzd' in symbols
+        True
+        >>>
+        >>> 'mkd' not in symbols
+        True
+        >>>
+
+Deleting elements by key lookup:
+    Example:
+        >>> z = {'H': 1, 'Tc': 43, 'Xe': 54, 'Fy': 137, 'Rf': 104, 'Fm': 100}
+        >>> del z['Fy']
+        >>> z
+        {'H': 1, 'Tc': 43, 'Xe': 54, 'Rf': 104, 'Fm': 100}
+        >>>
+
+Keys must be immutable.
+You can split the dict over multiple lines:
+    >>> m = {'H': [1, 2, 3],
+    ...     'He': [3, 4],
+    ...     'Li': [6, 7],
+    ...     'Be': [7, 9, 10],
+    ...     'B': [10, 11],
+    ...     'C': [11, 12, 13, 14]}
+
+Values can be mutable.
+Modifying values:
+    >>> m['H'] += [4, 5, 6, 7]
+    >>> m
+    {'H': [1, 2, 3, 4, 5, 6, 7], 'He': [3, 4], 'Li': [6, 7], 'Be': [7, 9, 10], 'B': [10, 11], 'C': [11, 12, 13, 14]}
+    >>>
+Adding items by defining new key-value:
+    >>> m['N'] = [13, 14, 15]
+
+Pretty printing:
+YOU MUST WRITE "as xxx" here!
+Without "as pp" the pprint funcion would mask the pprint module
+When writing stuff yourself, avoid having modules include functions of the same name.
+    >>> from pprint import pprint as pp
+    >>> pp(m)
+    {'B': [10, 11],
+     'Be': [7, 9, 10],
+     'C': [11, 12, 13, 14],
+     'H': [1, 2, 3, 4, 5, 6, 7],
+     'He': [3, 4],
+     'Li': [6, 7],
+     'N': [13, 14, 15]}
