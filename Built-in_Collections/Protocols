@@ -1,0 +1,53 @@
+Protocols
+    a set of operations of methods that a type must support
+    to implement that protocol
+
+    they needn't be defined as separate interfaces or base classes
+    (as they would in nominally typed languages, like c# or java)
+
+    nominally typed (checking against name)
+    structurally typed (checkind against structure)
+
+Which protocol for which types?
+Container       str, list, dict, range, tuple, set, bytes
+Sized           str, list, dict, range, tuple, set, bytes
+Iterable        str, list, dict, range, tuple, set, bytes
+Sequence        str, list,       range, tuple,      bytes
+Mutable Sequence     list
+Mutable Set                                    set
+Mutable Mapping            dict
+
+
+Container protocol
+    membership testing
+        item in container
+        item not in container
+
+Sized protocol
+    can call len() on that collection, e.g. len(container)
+
+Iterable protocol
+    can yield items one by one as they are requested
+    (can be used in for-loops!)
+        for item in iterable:
+            print(item)
+
+Sequence protocol
+    items can be retrieved using square brackets with an integer index:
+        item = sequence[index]
+    items can be searched for with index():
+        i = sequence.index(item)
+    items can be counted with count():
+        num = sequence.count(item)
+    a reversed copy of sequence can be produced with reverse():
+        r = reverse(sequence)
+    must also support the protocols of:
+        iterable
+        sized
+        container
+
+
+
+
+
+
