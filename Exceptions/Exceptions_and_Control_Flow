@@ -1,0 +1,112 @@
+Exception handling
+    mechanism for interrupting normal control flow
+    and continuing in surrounding context/ code block
+
+1. Raising an exception
+2. Handling an exception
+3. Unhandled exceptions
+4. Exception objects
+
+def convert(s):
+    try:
+        number = ''
+        for token in s:
+            number += DIGIT_MAP[token]
+        x = int(number)
+    except KeyError:
+        x = -1
+    return x
+
+
+try-block
+    contains code that could raise an exception
+except-block
+    handles exceptions (error handling)
+
+
+def convert(s):
+    """Convert a string to an integer."""
+    try:
+        number = ''
+        for token in s:
+            number += DIGIT_MAP[token]
+        x = int(number)
+        print(f"Conversion succeeded! x = {x}")
+    except KeyError:
+        print("Conversion failed!")
+        x = -1
+    except TypeError:
+        print("Conversion failed!")
+        x = -1
+    return x
+
+
+optimization:
+    move x = -1 assignment up
+    merge except-blocks
+
+
+def convert(s):
+    """Convert a string to an integer."""
+    x = -1
+    try:
+        number = ''
+        for token in s:
+            number += DIGIT_MAP[token]
+        x = int(number)
+        print(f"Conversion succeeded! x = {x}")
+    except (KeyError, TypeError):
+        print("Conversion failed!")
+    return x
+
+
+DO NOT EVER catch these Exceptions, resulting from programmer error:
+    IndentationError
+    SyntaxError
+    NameError
+
+
+Use "pass" to do nothing (it is a no-op):
+
+    def convert(s):
+    """Convert a string to an integer."""
+    x = -1
+    try:
+        number = ''
+        for token in s:
+            number += DIGIT_MAP[token]
+        x = int(number)
+    except (KeyError, TypeError):
+        pass
+    return x
+
+
+Accessing Exception Objects
+
+    import sys
+
+    DIGIT_MAP = {
+        'zero':  '0',
+        'one':   '1',
+        'two':   '2',
+        'three': '3',
+        'four':  '4',
+        'five':  '5',
+        'six':   '6',
+        'seven': '7',
+        'eight': '8',
+        'nine':  '9',
+    }
+
+    def convert(s):
+        try:
+            number = ''
+            for token in s:
+                number += DIGIT_MAP[token]
+            return int(number)
+        except (KeyError, TypeError) as e:
+            print(f"Conversion error: {e!r}",
+                  file=sys.stderr)
+            return -1
+
+    f'{expr!r}' --> gives more information about the exception.

@@ -1,0 +1,141 @@
+Exceptions are an important part of the API of a function
+    Callers of a function need to know which exceptions to expect under various conditions,
+    so that they have the right exception handlers in place
+
+Below algorithm calculates square roots
+It does not include division by zero exception (sqrt(-1) fails with ZeroDivisionError: float division by zero)
+
+    def sqrt(x):
+        """Compute square roots using the method
+        of Heron of Alexandria.
+
+        Args:
+            x: The number for which the square root
+                is to be computed.
+
+        Returns:
+            The square root of x.
+        """
+        guess = x
+        i = 0
+        while guess * guess != x and i < 20:
+            guess = (guess + x / guess) / 2.0
+            i += 1
+        return guess
+
+    def main():
+        print(sqrt(9))
+        print(sqrt(2))
+
+    if __name__ == '__main__':
+        main()
+
+
+Correct by catching this exception:
+
+    def sqrt(x):
+        # . . .
+
+    def main():
+        print(sqrt(9))
+        print(sqrt(2))
+        try:
+            print(sqrt(-1))
+        except ZeroDivisionError:
+            print("Cannot compute square root "
+                  "of a negative number.")
+
+        print("Program execution continues "
+              "normally here.")
+
+
+    if __name__ == '__main__':
+        main()
+
+
+avoid having more than one try-except block
+
+    def main():
+        try:
+            print(sqrt(9))
+            print(sqrt(2))
+            print(sqrt(-1))
+            print("This is never printed.")
+        except ZeroDivisionError:
+            print("Cannot compute square root of a negative number.")
+        print("Program execution continues normally here.")
+
+
+
+Use Standard Exception Types:
+    Python provides standard exception types for signalling common errors.
+    If a function is supplied with an illegal value, it is customary to raise a ValueError
+        Use ValueError for arguments of the right type, but invalid value.
+        Use the exception constructor: raise ValueError() --> raises new ValueError
+
+This approach is WASTEFUL:
+
+    def sqrt(x):
+    guess = x
+    i = 0
+    try:
+        while guess * guess != x and i < 20:
+            guess = (guess + x / guess) / 2.0
+            i += 1
+    except ZeroDivisionError:
+        raise ValueError()
+    return guess
+
+
+Better catch this early on:
+
+def sqrt(x):
+    if x < 0:
+        raise ValueError(
+            "Cannot compute square root of "
+            f"negative number {x}")
+
+    guess = x
+    i = 0
+    while guess * guess != x and i < 20:
+        guess = (guess + x / guess) / 2.0
+        i += 1
+    return guess
+
+
+This is how you edit the docstring to include raises:
+    """Compute square roots using the method
+    of Heron of Alexandria.
+
+    Args:
+        x: The number for which the square root
+            is to be computed.
+
+    Returns:
+        The square root of x.
+
+    Raises:
+          ValueError: If x is negative.
+    """
+
+
+The above code will give ugly tracebacks when calling main()
+Therefore change the main so:
+
+    >>> def main():
+    ...     try:
+    ...         print(sqrt(9))
+    ...         print(sqrt(2))
+    ...         print(sqrt(-1))
+    ...         print("This is never printed.")
+    ...     except ValueError as e:
+    ...         print(e, file=sys.stderr)
+    ...     print("Program execution continues normally here.")
+    ...
+    >>> main()
+    3.0
+    1.414213562373095
+    Cannot compute square root of negative number -1
+    Program execution continues normally here.
+
+This is a pretty traceback ^
