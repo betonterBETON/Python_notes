@@ -1,0 +1,50 @@
+Detecting a single keypress from Python, such as the "press any key to continue" - functionality at the console,
+requires the use of OS-specific modules.
+We cannot use the input() function, because it expects user to press "return" before giving us a string
+
+For Windows, we need the        msvcrt
+On Linux and MacOSx, we use     tty         termios         sys
+
+
+
+        """keypress - A module for detecting a single keypress."""
+
+        try:
+            import msvcrt
+
+            def getkey():
+                """Wait for a keypress and return a single character string."""
+                return msvcrt.getch()
+
+        except ImportError:
+
+            import sys
+            import tty
+            import termios
+
+            def getkey():
+                """Wait for a keypress and return a single character string."""
+                fd = sys.stdin.fileno()
+                original_attributes = termios.tcgetattr(fd)
+                try:
+                    tty.setraw(sys.stdin.fileno())
+                    ch = sys.stdin.read(1)
+                finally:
+                    termios.tcsetattr(fd, termios.TCSADRAIN, original_attributes)
+                return ch
+
+            # If either of the Unix-specific tty or termios are not found,
+            # we allow the ImportError to propagate from here
+
+
+The above "except ImportError" block is an example of an error being silenced explicitly.
+If the OS turns out to be neither Windows, nor Linux-like system, then another ImportError will be raised,
+and in this case, it will not be silenced.
+
+The caller can take alternative actions if both imports fail. For example, they could downgrade to using input()
+and giving a different message to the user.
+
+
+
+
+

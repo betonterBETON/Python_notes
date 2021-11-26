@@ -1,0 +1,24 @@
+We avoid checking for a specific type,
+because we want the code to be reusable.
+
+E.g. don't check if something is a list, when the code should/could
+just as well work for other types, like tuple or dict, see below:
+
+def convert(s):
+    if not isinstance(s, list):
+        raise TypeError(
+            "Argument must be a list")
+
+    try:
+        number = ''
+        for token in s:
+            number += DIGIT_MAP[token]
+        return int(number)
+    except (KeyError, TypeError) as e:
+        print(f"Conversion error: {e!r}",
+              file=sys.stderr)
+        raise
+
+
+Instead, let TypeErrors arise on their own.
+Therefore, we tend not to catch TypeErrors very frequently.

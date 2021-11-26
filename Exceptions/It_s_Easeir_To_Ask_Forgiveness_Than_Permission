@@ -1,0 +1,79 @@
+How one can deal with program operations that might fail:
+    1. Check that all the preconditions for a failure-prone operations are met in advance,
+       before attempting the operation.
+    2. Blindly hope for the best and prepare for the consequences
+
+LBYL - look before you leap (1. approach)
+
+EAFP - easier to ask forgiveness than permission (2. approach)
+
+
+Python strongly prefers EAFP.
+    The code's happy path is emphasized rather than being interspersed with error handling
+    The primary logic is put in its most readable form. Deviations from the normal flow are handled separately.
+
+Example: file processing
+
+    LBYL
+
+        # Process file: LBYL
+        import os
+
+        def process_file(p):
+            with open(p) as f:
+                pass
+
+        p = '/path/to/datafile.dat'
+
+        if os.path.exists(p):
+            process_file(p)
+        else:
+            print(f'No such file as {p}')
+
+    The problems with this approach:
+        we only perform an existence check
+            -what if the file exists but the contents are garbage?
+            -what if the path refers to a directory?
+        the check might be true when checked, but become false right after
+            -what if the file is deleted after the check but before the processing of file?
+
+
+    EAFP
+
+        # Process file: EAFP
+        import os
+
+        def process_file(p):
+            with open(p) as f:
+                pass
+
+        p = '/path/to/datafile.dat'
+
+        try:
+            process_file(p)
+        except OSError as e:
+            print(f'Error: {e}')
+
+    The advantage of this approach:
+        the OSError is an umbrella for a range of issues
+
+
+Summary:
+    EAFP is preferred in Python and enabled by exceptions
+    Without exceptions, error handling is interspersed in program flow
+    Since exceptions interrupt the main flow, they allow you to handle those exceptional cases non-locally
+
+    EAFP plus Exceptions
+        1. Unlike error codes, Exceptions cannot be easily ignored
+        2. Exceptions have a big effect, while error codes are silent by default
+        3. This approach makes it very hard for problems to be silently ignored
+
+
+
+
+
+
+
+
+
+

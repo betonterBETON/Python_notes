@@ -1,0 +1,75 @@
+Sometimes, you need to perform a cleanup action irrespective of whether an operation succeeds.
+Context managers - see later modules (modern solution for this problem)
+
+Sometimes, creating a context manager can be an overkill in a simple case. In such situations,
+use the try-finally construct.
+
+try-finally construct:
+
+    try:
+        # try-block
+    finally:
+        # executed no matter how the
+        # try-block terminates
+
+
+Analyze the code below:
+
+        import os
+
+        def make_at(path, dir_name):
+            original_path = os.getcwd()
+            os.chdir(path)
+            os.mkdir(dir_name)
+            os.chdir(original_path)
+
+
+    if the call to os.mkdir fails, the cwd won't be restored to its original value!!
+    We have to fix it by changing the cwd under all circumstances
+
+
+    To always change the directory back to original, no matter if the functions inbetween succeeded or not,
+    make use of the 'finally' clause:
+
+        import os
+        import sys
+
+        def make_at(path, dir_name):
+            original_path = os.getcwd()
+            os.chdir(path)
+            try:
+                os.mkdir(dir_name)
+            finally:
+                os.chdir(original_path)
+
+
+    the 'finally'-block is executed whether or not the try-block is exited normally (success)
+    or exceptionally (error+exception).
+
+
+    We can combine 'finally' with 'except', see below:
+
+        import os
+        import sys
+
+        def make_at(path, dir_name):
+            original_path = os.getcwd()
+            os.chdir(path)
+            try:
+                os.mkdir(dir_name)
+            except OSError as e:
+                print(e, file=sys.stderr)
+                raise
+            finally:
+                os.chdir(original_path)
+
+
+    Here, the exception is re-raised. Still, the finally-block will execute.
+
+    Moment of Zen:
+        Errrors should never pass silently, unless explicitly silenced.
+            Errors are like bells. And if we make them silent, they're of no use.
+
+
+
+

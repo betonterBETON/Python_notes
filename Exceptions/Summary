@@ -1,0 +1,24 @@
+1. Raising an exception interrupts normal program flow, and transfers control to an exception-handler.
+2. Exception-handlers are defined with the try...except construct.
+3. Try blocks define the context, in which exceptions can be detected.
+4. Corresponding except-blocks define handlers for specific types of exceptions.
+5. Python uses exceptions pervasively and many builtin language features depend on them.
+6. Except-blocks can capture an exception object, which is often of a standard type,
+    such as ValueError, KeyError or IndexError
+7. Programmer errors, such as IndentationErrors, SyntaxErrors, should not normally be handled.
+8. Exceptional conditions can be signalled with the 'raise' keyword,
+    which accepts a single parameter of an exception object
+9. 'Raise' without an argument re-raises the current exception
+10. Generally, don't catch TypeError, because it is against the Python's dynamic typesystem.
+11. Exception objects can be converted to strings using str() constructor for the purposes
+    of printing message payloads
+12. The exceptions thrown by a function form a part of its API, and should be appropriately documented
+13. When raising exceptions, prefer to use the most appropriate built-in exception types, whenever possible
+14. Cleanup and restorative actions can be performed using the 'try...finally' construct, which may optionally
+    be used in conjunction with 'except' blocks
+15. The output of the print() function can be redirected to std error using the optional 'file' argument
+16. The expressions in f-strings can be suffixed with '!r' to use the 'repr' representation of the inserted value
+17. Python supports the logical operators 'and' and 'or' for combining boolean expressions
+18. Return codes are too easily ignored
+19. Platform-specific actions can be implemented using the EAFP approach facilitated by inercepting ImportErrors
+    and providing alternative implementations

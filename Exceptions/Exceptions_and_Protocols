@@ -1,0 +1,86 @@
+Exceptions are part of a function's API
+    more broadly, they are part of certain protocols
+
+IndexError
+    Objects which implement the sequence protocol should raise the IndexError for indices (indexes), which are out of range
+
+Exceptions and protocols
+    Exceptions must be implemented and documented correctly
+    Existing builtin exceptions should be used whenever possible
+
+Follow existing patterns
+     Look for similar cases in existing code
+
+E.g say you wrote a key-value database:
+    use a keyerror to indicate a non-existent key, because that is how a dict works (mapping in Py follows such patterns)
+
+    def lookup(key):
+        if not find_key(key):
+            raise KeyError()
+        return value(key)
+
+NICE:
+while True:
+    try:
+        n = input("Please enter an integer: ")
+        n = int(n)
+        break
+    except ValueError:
+        print("No valid integer! Please try again ...")
+print("Great, you successfully entered an integer!")
+
+It's a loop, which breaks only if a valid integer has been given. The while loop is entered. The code within
+the try clause will be executed statement by statement. If no exception occurs during the execution,
+the execution will reach the break statement and the while loop will be left. If an exception occurs,
+i.e. in the casting of n, the rest of the try block will be skipped and the except clause will be executed.
+The raised error, in our case a ValueError, has to match one of the names after except. In our example only one,
+i.e. "ValueError:". After having printed the text of the print statement, the execution does another loop.
+It starts with a new input().
+
+
+The try ... except statement has an optional else clause.
+import sys
+file_name = sys.argv[1]
+text = []
+try:
+    fh = open(file_name, 'r')
+except IOError:
+    print('cannot open', file_name)
+else:
+    text = fh.readlines()
+    fh.close()
+
+if text:
+    print(text[100])
+
+
+COMMON EXCEPTION TYPES
+    1. IndexError
+        for index out of range
+
+            >>> z = [1,4,2]
+            >>> z[4]
+            Traceback (most recent call last):
+              File "<stdin>", line 1, in <module>
+            IndexError: list index out of range
+
+    2.ValueError
+        for object of correct type but inappropriate value
+
+            >>> int("jim")
+            Traceback (most recent call last):
+              File "<stdin>", line 1, in <module>
+            ValueError: invalid literal for int() with base 10: 'jim'
+
+    3. KeyError
+        when a lookup in a mapping fails
+
+            >>> codes = dict(gb=44, us=1, no=47, fr=33, es=34)
+            >>> codes['de']
+            Traceback (most recent call last):
+              File "<stdin>", line 1, in <module>
+            KeyError: 'de'
+
+
+
+
